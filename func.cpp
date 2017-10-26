@@ -74,69 +74,6 @@ double AactB(pgene Gene[7],int a,int b,int posi)
 {
     return(v[a][b]*((Gene[a]->c0[posi])/(k[a][b]+Gene[a]->c0[posi])));
 }
-/*
-int react(pgene Gene[7],int posi)
-{
-    int a,b;
-    double tmp,tmp2;
-    for(b=3;b<7;b++)
-    {
-        tmp=alpha[b]*dt;
-        tmp2=1;
-        for(a=0;a<7;a++)
-        {
-            if(topolo[a][b]!=1)
-                tmp*=AactB(Gene,a,b,posi);
-            else if(topolo[a][b]==1)
-                tmp2*=(1-AactB(Gene,a,b,posi));
-        }
-        if (tmp2!=1)
-            tmp*=(1-tmp2);
-        Gene[b]->c1[posi]+=tmp;
-    }
-}
-double AactB(pgene Gene[7],int a,int b,int posi)
-{
-    if(topolo[a][b]==0)
-    {
-        return 1;
-    }
-    else
-    {
-        double tmp=pow(1+C*fabs(k[a][b])*Gene[a]->c0[posi],n);
-        if(topolo[a][b]==1)
-        {
-            return((tmp-1)/(tmp+C-1));
-        }
-        else if(topolo[a][b]==-1)
-        {
-            return(C/(tmp+C-1));
-        }
-        else if(topolo[a][b]==2)
-        {
-            return((C*(tmp-1))/((tmp+C-1)*(tmp+C-1)));
-        }
-        else
-            return 1;
-    }
-
-}
-*/
-int Sign(double x)
-{
-    if(x>0)
-    {
-            return 1;
-    }
-    else if(x<0)
-    {
-            return -1;
-    }
-    else
-        return 0;
-}
-
-
 void training(pgene Gene[7])
 {
     int step,i,j;
@@ -178,24 +115,28 @@ void training(pgene Gene[7])
         {
             for(j=3;j<7;j++)
             {
-                delta=0.000000001*k[i][j]+0.00001;
+                delta=0.00001*k[i][j]+0.000001;
                 k_new[i][j]=k[i][j];
                 k[i][j]+=delta;
                 err=run(Gene);
                 k[i][j]-=delta;
                 k_new[i][j]+=(init_err-err)*ln_rate/delta;
+            //k[i][j]=k_new[i][j];
+            //init_err=err;
             }
         }
         for(i=0;i<7;i++)
         {
             for(j=3;j<7;j++)
             {
-                delta=0.000000001*v[i][j]+0.00001;
+                delta=0.00001*v[i][j]+0.000001;
                 v_new[i][j]=v[i][j];
                 v[i][j]+=delta;
                 err=run(Gene);
                 v[i][j]-=delta;
                 v_new[i][j]+=(init_err-err)*ln_rate/delta;
+            //v[i][j]=v_new[i][j];
+            //init_err=err;
             }
         }
 //        for(i=3;i<7;i++)
