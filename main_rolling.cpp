@@ -24,6 +24,14 @@ double k[7][7]={    0, 0, 0, K0, K0,  0, K0,
                     0, 0, 0,  0,  0,  0,-K2,
                     0, 0, 0,  0,  0,-K0,  0
                     };
+double v[7][7]={    0,  0,  0,  1,  1,  0,  1,
+                    0,  0,  0,  0,  0,  0,  1,
+                    0,  0,  0, -1,  0,  0, -1,
+                    0,  0,  0,  0, -1,  0,  0,
+                    0,  0,  0, -1,  1,  1,  0,
+                    0,  0,  0,  0,  0,  0, -1,
+                    0,  0,  0,  0,  0, -1,  0
+                    };
 double C=1; //3.31;  //0.52;
 double alpha[7]={0,0,0,50,0.1,10,100};//0.13;  //2.9;
 double beta=0.13;
@@ -33,6 +41,7 @@ double dx=0.1;
 double dt=0.0005;
 double d=D*dt/(dx*dx);
 double mhb[Nx];
+double v_new[7][7];
 double k_new[7][7];
 double alpha_new[7];
 double ln_rate;
@@ -41,6 +50,13 @@ double D_rate=(ln_rate_max-ln_rate_min)/traintime;
 int main()
 {
 	int i,j;
+
+for(i=0;i<7;i++)
+{
+    for(j=0;j<7;j++)
+        k[i][j]=1.0;
+}
+
     FILE *fp;
     mkdir("output",0777);
     char kni[20]="output/kni.txt";

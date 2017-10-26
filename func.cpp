@@ -58,6 +58,26 @@ int deg(pgene Gene[7],int posi)
 int react(pgene Gene[7],int posi)
 {
     int a,b;
+    double tmp;
+    for(b=3;b<7;b++)
+    {
+        tmp=0;
+        for(a=0;a<7;a++)
+        {
+            tmp+=AactB(Gene,a,b,posi);
+        }
+        tmp*=dt;
+        Gene[b]->c1[posi]+=tmp;
+    }
+}
+double AactB(pgene Gene[7],int a,int b,int posi)
+{
+    return(v[a][b]*((Gene[a]->c0[posi])/(k[a][b]+Gene[a]->c0[posi])));
+}
+/*
+int react(pgene Gene[7],int posi)
+{
+    int a,b;
     double tmp,tmp2;
     for(b=3;b<7;b++)
     {
@@ -101,7 +121,7 @@ double AactB(pgene Gene[7],int a,int b,int posi)
     }
 
 }
-
+*/
 int Sign(double x)
 {
     if(x>0)
@@ -139,11 +159,20 @@ void training(pgene Gene[7])
             }
             printf("\n");
         }
-        printf("\t\t");
-        for(i=3;i<7;i++)
+        for(i=0;i<7;i++)
         {
-            printf("%f\t",alpha[i]);
+            printf("\t\t");
+            for(j=3;j<7;j++)
+            {
+                printf("%f\t",v[i][j]);
+            }
+            printf("\n");
         }
+//        printf("\t\t");
+//        for(i=3;i<7;i++)
+//        {
+//            printf("%f\t",alpha[i]);
+//        }
         printf("\n");
         for(i=0;i<7;i++)
         {
@@ -157,22 +186,37 @@ void training(pgene Gene[7])
                 k_new[i][j]+=(init_err-err)*ln_rate/delta;
             }
         }
-        for(i=3;i<7;i++)
-        {
-            delta=0.000000001*alpha[i];
-            alpha_new[i]=alpha[i];
-            alpha[i]+=delta;
-            err=run(Gene);
-            alpha[i]-=delta;
-            alpha_new[i]+=(init_err-err)*ln_rate/delta;
-        }
         for(i=0;i<7;i++)
         {
             for(j=3;j<7;j++)
-                k[i][j]=k_new[i][j];
+            {
+                delta=0.000000001*v[i][j]+0.00001;
+                v_new[i][j]=v[i][j];
+                v[i][j]+=delta;
+                err=run(Gene);
+                v[i][j]-=delta;
+                v_new[i][j]+=(init_err-err)*ln_rate/delta;
+            }
         }
-        for(i=3;i<7;i++)
-            alpha[i]=alpha_new[i];
+//        for(i=3;i<7;i++)
+//        {
+//            delta=0.000000001*alpha[i];
+//            alpha_new[i]=alpha[i];
+//            alpha[i]+=delta;
+//            err=run(Gene);
+//            alpha[i]-=delta;
+//            alpha_new[i]+=(init_err-err)*ln_rate/delta;
+//        }
+        for(i=0;i<7;i++)
+        {
+            for(j=3;j<7;j++)
+            {
+                k[i][j]=k_new[i][j];
+                v[i][j]=v_new[i][j];
+            }
+        }
+//        for(i=3;i<7;i++)
+//            alpha[i]=alpha_new[i];
         ln_rate-=D_rate;
     }
 }
@@ -183,11 +227,11 @@ double run(pgene Gene[7])
     for(i=3;i<7;i++)
         Gene[i]->setinit();
     Gene[4]->setvar(mhb);
-    for(i=0;i<7;i++)
-    {
-        for(j=3;j<7;j++)
-            topolo[i][j]=Sign(k[i][j]);
-    }
+//    for(i=0;i<7;i++)
+//    {
+//        for(j=3;j<7;j++)
+//            topolo[i][j]=Sign(k[i][j]);
+//    }
     for(i=0;i<T;i++)
     {
         nextstep(Gene);
@@ -198,6 +242,7 @@ double run(pgene Gene[7])
     {
         err+=Gene[i]->error();
     }
+    return(err);
 }
 
 
