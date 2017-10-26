@@ -53,8 +53,11 @@ int main()
 
 for(i=0;i<7;i++)
 {
-    for(j=0;j<7;j++)
+    for(j=3;j<7;j++)
+    {    
         k[i][j]=1.0;
+        v[i][j]=0.1;
+    }
 }
 
     FILE *fp;
@@ -136,13 +139,14 @@ for(i=0;i<7;i++)
 
 
 training(Gene);
-
-
-    for(i=0;i<7;i++)
-    {
-        for(j=0;j<7;j++)
-            topolo[i][j]=Sign(k[i][j]);
-    }
+    for(i=3;i<7;i++)
+        Gene[i]->setinit();
+    Gene[4]->setvar(mhb);
+//    for(i=0;i<7;i++)
+//    {
+//        for(j=0;j<7;j++)
+//            topolo[i][j]=Sign(k[i][j]);
+//    }
     for(i=0;i<T;i++)
     {
         if((i%(T/50)==0)||(i==0))
@@ -158,10 +162,12 @@ training(Gene);
             Gene[j]->next();
         }
     }
+
     Gene[3]->print(fi);
     Gene[4]->print(fi);
     Gene[5]->print(fi);
     Gene[6]->print(fi);
+
     return 0;
 
 }

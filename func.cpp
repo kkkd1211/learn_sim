@@ -74,6 +74,15 @@ double AactB(pgene Gene[7],int a,int b,int posi)
 {
     return(v[a][b]*((Gene[a]->c0[posi])/(k[a][b]+Gene[a]->c0[posi])));
 }
+int Sign(double x)
+{
+    if(x>0)
+        return 1;
+    else if(x<0)
+        return -1;
+    else
+        return 0;
+}
 void training(pgene Gene[7])
 {
     int step,i,j;
@@ -105,11 +114,6 @@ void training(pgene Gene[7])
             }
             printf("\n");
         }
-//        printf("\t\t");
-//        for(i=3;i<7;i++)
-//        {
-//            printf("%f\t",alpha[i]);
-//        }
         printf("\n");
         for(i=0;i<7;i++)
         {
@@ -121,8 +125,6 @@ void training(pgene Gene[7])
                 err=run(Gene);
                 k[i][j]-=delta;
                 k_new[i][j]+=(init_err-err)*ln_rate/delta;
-            //k[i][j]=k_new[i][j];
-            //init_err=err;
             }
         }
         for(i=0;i<7;i++)
@@ -135,19 +137,8 @@ void training(pgene Gene[7])
                 err=run(Gene);
                 v[i][j]-=delta;
                 v_new[i][j]+=(init_err-err)*ln_rate/delta;
-            //v[i][j]=v_new[i][j];
-            //init_err=err;
             }
         }
-//        for(i=3;i<7;i++)
-//        {
-//            delta=0.000000001*alpha[i];
-//            alpha_new[i]=alpha[i];
-//            alpha[i]+=delta;
-//            err=run(Gene);
-//            alpha[i]-=delta;
-//            alpha_new[i]+=(init_err-err)*ln_rate/delta;
-//        }
         for(i=0;i<7;i++)
         {
             for(j=3;j<7;j++)
@@ -156,15 +147,13 @@ void training(pgene Gene[7])
                 v[i][j]=v_new[i][j];
             }
         }
-//        for(i=3;i<7;i++)
-//            alpha[i]=alpha_new[i];
         ln_rate-=D_rate;
     }
 }
 double run(pgene Gene[7])
 {
     int i,j;
-    double err=0;
+    double tmp;
     for(i=3;i<7;i++)
         Gene[i]->setinit();
     Gene[4]->setvar(mhb);
@@ -179,11 +168,12 @@ double run(pgene Gene[7])
         for(j=3;j<7;j++)
             Gene[j]->next();
     }
+    tmp=0.0;
     for(i=3;i<7;i++)
     {
-        err+=Gene[i]->error();
+        tmp+=Gene[i]->error();
     }
-    return(err);
+    return(tmp);
 }
 
 
