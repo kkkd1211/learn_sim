@@ -66,10 +66,10 @@ for(i=0;i<7;i++)
     char kr[20]="output/kr.txt";
     char gt[20]="output/gt.txt";
     char fi[20]="output/final.txt";
-    char kni_tg[25]="input/kni_target.txt";
-    char hb_tg[25]="input/hb_target.txt";
-    char kr_tg[25]="input/kr_target.txt";
-    char gt_tg[25]="input/gt_target.txt";
+    char kni_tg[25]="data_final/kni_target.txt";
+    char hb_tg[25]="data_final/hb_target.txt";
+    char kr_tg[25]="data_final/kr_target.txt";
+    char gt_tg[25]="data_final/gt_target.txt";
     fp=fopen(kni,"w");
     fclose(fp);
     fp=fopen(hb,"w");
