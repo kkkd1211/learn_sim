@@ -68,6 +68,8 @@ int react(pgene Gene[7],int posi)
         }
         tmp*=dt;
         Gene[b]->c1[posi]+=tmp;
+        if(Gene[b]->c1[posi]<0)
+            Gene[b]->c1[posi]=0;
     }
 }
 double AactB(pgene Gene[7],int a,int b,int posi)
