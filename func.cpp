@@ -161,7 +161,9 @@ void training(pgene Gene[7])
         {
             for(j=3;j<7;j++)
             {
-                delta=0.00001*fabs(v[i][j])+0.000001;
+                delta=0.00001*fabs(v[i][j]);
+                if(delta==0)
+                    delta=0.00001;
                 v[i][j]+=delta;
                 err=run(Gene);
                 v[i][j]-=delta;
