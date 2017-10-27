@@ -161,16 +161,14 @@ void training(pgene Gene[7])
         {
             for(j=3;j<7;j++)
             {
-                delta=0.00001*fabs(v[i][j]);
-                if(delta==0)
-                    delta=0.00001;
+                delta=0.00001*fabs(v[i][j])+0.00001;
                 v[i][j]+=delta;
                 err=run(Gene);
                 v[i][j]-=delta;
                 de=(init_err-err)/delta;
                 if(de>0)
                 {
-                    tmp=ln_rate*sqrt(de);
+                    tmp=ln_rate*(de);                           //sqrt
                     v[i][j]+=tmp;
                     err2=run(Gene);
                     if(init_err-err2<0)
@@ -189,12 +187,12 @@ void training(pgene Gene[7])
                     de=(init_err-err)/delta;
                     if(de>0)
                     {
-                        tmp=ln_rate*sqrt(de);
-                        v[i][j]+=tmp;
+                        tmp=ln_rate*(de);                       //sqrt
+                        v[i][j]-=tmp;
                         err2=run(Gene);
                         if(init_err-err2<0)
                         {
-                            v[i][j]=v[i][j]-tmp+delta;
+                            v[i][j]=v[i][j]+tmp-delta;
                             init_err=err;
                         }
                         else
