@@ -64,12 +64,12 @@ int react(pgene Gene[7],int posi)
         tmp=0;
         for(a=0;a<7;a++)
         {
-            tmp+=AactB(Gene,a,b,posi);
+            tmp+=mut[a][b]*AactB(Gene,a,b,posi);
         }
         tmp*=dt;
         Gene[b]->c1[posi]+=tmp;
-        if(Gene[b]->c1[posi]<0)
-            Gene[b]->c1[posi]=0;
+        if(Gene[b]->c1[posi]<=0)
+            Gene[b]->c1[posi]=0.000001;
     }
 }
 double AactB(pgene Gene[7],int a,int b,int posi)
@@ -214,7 +214,9 @@ double run(pgene Gene[7])
     double tmp;
     for(i=3;i<7;i++)
         Gene[i]->setinit();
+#ifdef mhb1
     Gene[4]->setvar(mhb);
+#endif
 //    for(i=0;i<7;i++)
 //    {
 //        for(j=3;j<7;j++)
