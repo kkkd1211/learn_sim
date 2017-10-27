@@ -88,7 +88,8 @@ void training(pgene Gene[7])
     int step,i,j;
     double init_err=0;
     double err=0;
-    double delta;
+    double err2=0;
+    double delta,tmp,de;
     ln_rate=ln_rate_max;
     for(step=0;step<traintime;step++)
     {
@@ -98,54 +99,109 @@ void training(pgene Gene[7])
         printf("step:%d\terr:%.10f\n",step,init_err);
         for(i=0;i<7;i++)
         {
-            printf("\t");
-            for(j=3;j<7;j++)
-            {
-                printf("%f\t",k[i][j]);
-            }
-            printf("\n");
-        }
-        for(i=0;i<7;i++)
-        {
-            printf("\t\t");
-            for(j=3;j<7;j++)
-            {
-                printf("%f\t",v[i][j]);
-            }
-            printf("\n");
-        }
-        printf("\n");
-        for(i=0;i<7;i++)
-        {
             for(j=3;j<7;j++)
             {
                 delta=0.00001*k[i][j]+0.000001;
-                k_new[i][j]=k[i][j];
+                
                 k[i][j]+=delta;
                 err=run(Gene);
                 k[i][j]-=delta;
-                k_new[i][j]+=(init_err-err)*ln_rate/delta;
+                de=(init_err-err)/delta;
+
+                if(de>0)
+                {
+                    tmp=ln_rate*sqrt(de);
+                    k[i][j]+=tmp;
+                    err2=run(Gene);
+                    if(init_err-err2<0)
+                    {
+                        k[i][j]=k[i][j]-tmp+delta;
+                        init_err=err;
+                    }
+                    else
+                        init_err=err2;
+                }
+                else if(de<0)
+                {
+
+                    k[i][j]-=delta;
+                    err=run(Gene);
+                    k[i][j]+=delta;
+                    de=(init_err-err)/delta;
+                    if(de>0)
+                    {
+                        tmp=ln_rate*sqrt(de);
+                        k[i][j]-=tmp;
+                        if(k[i][j]<0)
+                        {
+                            k[i][j]+=tmp;
+                            tmp=k[i][j]*0.5;
+                            k[i][j]-=tmp;
+                        }
+                        err2=run(Gene);
+                        if(init_err-err2<0)
+                        {
+                            k[i][j]=k[i][j]+tmp-delta;
+                            init_err=err;
+                        }
+                        else
+                            init_err=err2;
+                    }
+                    
+                }
+                printf("%f(%f)\t",k[i][j],init_err);
             }
+            printf("\n");
         }
+
+
+
+
         for(i=0;i<7;i++)
         {
             for(j=3;j<7;j++)
             {
-                delta=0.00001*v[i][j]+0.000001;
-                v_new[i][j]=v[i][j];
+                delta=0.00001*fabs(v[i][j])+0.000001;
                 v[i][j]+=delta;
                 err=run(Gene);
                 v[i][j]-=delta;
-                v_new[i][j]+=(init_err-err)*ln_rate/delta;
+                de=(init_err-err)/delta;
+                if(de>0)
+                {
+                    tmp=ln_rate*sqrt(de);
+                    v[i][j]+=tmp;
+                    err2=run(Gene);
+                    if(init_err-err2<0)
+                    {
+                        v[i][j]=v[i][j]-tmp+delta;
+                        init_err=err;
+                    }
+                    else
+                        init_err=err2;
+                }
+                else if(de<0)
+                {
+                    v[i][j]-=delta;
+                    err=run(Gene);
+                    v[i][j]+=delta;
+                    de=(init_err-err)/delta;
+                    if(de>0)
+                    {
+                        tmp=ln_rate*sqrt(de);
+                        v[i][j]+=tmp;
+                        err2=run(Gene);
+                        if(init_err-err2<0)
+                        {
+                            v[i][j]=v[i][j]-tmp+delta;
+                            init_err=err;
+                        }
+                        else
+                            init_err=err2;
+                    }
+                }
+                printf("\t%f(%f)",v[i][j],err);
             }
-        }
-        for(i=0;i<7;i++)
-        {
-            for(j=3;j<7;j++)
-            {
-                k[i][j]=k_new[i][j];
-                v[i][j]=v_new[i][j];
-            }
+            printf("\n");
         }
         ln_rate-=D_rate;
     }

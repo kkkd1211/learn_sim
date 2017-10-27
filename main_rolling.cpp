@@ -50,7 +50,6 @@ double D_rate=(ln_rate_max-ln_rate_min)/traintime;
 int main()
 {
 	int i,j;
-
 for(i=0;i<7;i++)
 {
     for(j=3;j<7;j++)
