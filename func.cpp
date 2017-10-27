@@ -199,7 +199,7 @@ void training(pgene Gene[7])
                             init_err=err2;
                     }
                 }
-                printf("\t%f(%f)",v[i][j],err);
+                printf("\t%f(%f)",v[i][j],init_err);
             }
             printf("\n");
         }
