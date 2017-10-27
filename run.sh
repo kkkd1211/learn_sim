@@ -4,3 +4,4 @@ rm ./output/*
 ./k
 sh switch_R_C.sh
 gnuplot makegif.plt
+echo "done_`date +%d%m-%H%M`">>README.md
