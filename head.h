@@ -8,7 +8,7 @@ using namespace std;
 #define T 2000
 //#define delta 0.001
 #define traintime 200
-#define ln_rate_max 0.9
+#define ln_rate_max 0.7
 #define ln_rate_min 0.2
 extern int topolo[7][7];
 extern double v[7][7];
