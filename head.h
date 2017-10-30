@@ -5,14 +5,14 @@
 using namespace std;
 #define kkk printf("!!!\n");
 #define trainning1
-#define mhb1
+#define mhb0
 #define read0
 #define write1
 
 #define Nx 100
 #define T 2000
 //#define delta 0.001
-#define traintime 20
+#define traintime 200
 #define ln_rate_max 0.7
 #define ln_rate_min 0.2
 extern int topolo[7][7];
