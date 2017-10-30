@@ -33,7 +33,7 @@ double k[7][7]={    0, 0, 0, K0, K0,  0, K0,
                     0, 0, 0,  0,  0,  0,-K2,
                     0, 0, 0,  0,  0,-K0,  0
                     };
-double v[7][7]={    0,  0,  0,  5,  5,  0,  1,
+double v[7][7]={    0,  0,  0,  1,  1,  0,  1,
                     0,  0,  0,  5,  0,  0,  1,
                     0,  0,  0, -1,  0,  0, -1,
                     0,  0,  0,  0,  -1,  0,  0,
@@ -213,7 +213,7 @@ training(Gene);
     Gene[4]->print(fi);
     Gene[5]->print(fi);
     Gene[6]->print(fi);
-
+#ifdef write1
     fp=fopen("k.txt","w");
     for(i=0;i<7;i++)
     {
@@ -233,6 +233,7 @@ training(Gene);
         }
         fprintf(fp,"\n");
     }
+#endif
     return 0;
 
 }
