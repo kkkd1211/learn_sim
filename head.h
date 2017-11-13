@@ -5,8 +5,7 @@
 using namespace std;
 #define kkk printf("!!!\n");
 #define trainning1
-#define mhb0
-#define read0
+#define read1
 #define write1
 
 #define Nx 100
@@ -32,7 +31,10 @@ extern double dt;
 extern double d;
 extern double ln_rate;
 extern double D_rate;
-extern double mhb[Nx];
+extern double hb_in_data[Nx];
+extern double kr_in_data[Nx];
+extern double gt_in_data[Nx];
+extern double kni_in_data[Nx];
 
 class gene;
 typedef gene *pgene;
@@ -46,7 +48,7 @@ class gene
         double c1[Nx];
         double target[Nx];
         
-        void setinit();
+//        void setinit();
         void next();
         void print(char name[20]);
         double error();

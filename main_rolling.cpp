@@ -36,7 +36,7 @@ double k[7][7]={    0, 0, 0, K0, K0,  0, K0,
 double v[7][7]={    0,  0,  0,  1,  1,  0,  1,
                     0,  0,  0,  5,  0,  0,  1,
                     0,  0,  0, -1,  0,  0, -1,
-                    0,  0,  0,  0,  -1,  0,  0,
+                    0,  0,  0,  0,  -3,  0,  0,
                     0,  0,  0, -1,  1,  1,  0,
                     0,  0,  0,  0,  0,  0, -1,
                     0,  0,  0,  0,  0, -1,  0
@@ -70,7 +70,7 @@ double D=0.65;  //0.18;
 double dx=0.1;
 double dt=0.0005;
 double d=D*dt/(dx*dx);
-double mhb[Nx];
+double hb_in_data[Nx],kr_in_data[Nx],kni_in_data[Nx],gt_in_data[Nx];
 double v_new[7][7];
 double k_new[7][7];
 double alpha_new[7];
@@ -80,29 +80,29 @@ double D_rate=(ln_rate_max-ln_rate_min)/traintime;
 int main()
 {
 	int i,j;
-for(i=0;i<7;i++)
-{
-    for(j=3;j<7;j++)
-    {    
-        k[i][j]=1.0;
-//        v[i][j]=0.1;
+    for(i=0;i<7;i++)
+    {
+        for(j=3;j<7;j++)
+        {  
+            k[i][j]=1.0;
+//          v[i][j]=0.1;
+        }
     }
-}
     FILE *fp,*fp2;
 #ifdef read1
     printf("reading data!!!\n\n");
-fp=fopen("k.txt","r");
-fp2=fopen("v.txt","r");
-for(i=0;i<7;i++)
-{
-    for(j=0;j<7;j++)
+    fp=fopen("k.txt","r");
+    fp2=fopen("v.txt","r");
+    for(i=0;i<7;i++)
     {
-        fscanf(fp,"%lf\t",&k[i][j]);
-        fscanf(fp2,"%lf\t",&v[i][j]);
+        for(j=0;j<7;j++)
+        {
+            fscanf(fp,"%lf\t",&k[i][j]);
+            fscanf(fp2,"%lf\t",&v[i][j]);
+        }
+        fscanf(fp,"\n");
+        fscanf(fp2,"\n");
     }
-    fscanf(fp,"\n");
-    fscanf(fp2,"\n");
-}
 #endif
     mkdir("output",0777);
     char kni[20]="output/kni.txt";
@@ -110,10 +110,16 @@ for(i=0;i<7;i++)
     char kr[20]="output/kr.txt";
     char gt[20]="output/gt.txt";
     char fi[20]="output/final.txt";
+    
     char kni_tg[35]="data_final/kni_target.txt";
     char hb_tg[35]="data_final/hb_target.txt";
     char kr_tg[35]="data_final/kr_target.txt";
     char gt_tg[35]="data_final/gt_target.txt";
+    
+    char kni_in[40]="input/kni_in_wt.txt";
+    char hb_in[40]="input/hb_in_wt.txt";
+    char kr_in[40]="input/kr_in_wt.txt";
+    char gt_in[40]="input/gt_in_wt.txt";
     fp=fopen(kni,"w");
     fclose(fp);
     fp=fopen(hb,"w");
@@ -143,18 +149,29 @@ for(i=0;i<7;i++)
     Gene[2]=new gene(tmp);
     fclose(fp);
 //Kni
-    Gene[3]=new gene();
+    fp=fopen(kni_in,"r");
+    for(i=0;i<Nx;i++)
+        fscanf(fp,"%lf\t",&kni_in_data[i]);
+    Gene[3]=new gene(kni_in_data);
+    fclose(fp);
 //Hb
-    fp=fopen("input/M_hb.txt","r");
+    fp=fopen(hb_in,"r");
     for(i=0;i<100;i++)
-        fscanf(fp,"%lf\t",&mhb[i]);
-    Gene[4]=new gene(mhb);
+        fscanf(fp,"%lf\t",&hb_in_data[i]);
+    Gene[4]=new gene(hb_in_data);
     fclose(fp);
 //Kr
-    Gene[5]=new gene();
+    fp=fopen(kr_in,"r");
+    for(i=0;i<Nx;i++)
+        fscanf(fp,"%lf\t",&kr_in_data[i]);
+    Gene[5]=new gene(kr_in_data);
+    fclose(fp);
 //Gt
-    Gene[6]=new gene();
-    
+    fp=fopen(gt_in,"r");
+    for(i=0;i<Nx;i++)
+        fscanf(fp,"%lf\t",&gt_in_data[i]);
+    Gene[6]=new gene(gt_in_data);
+    fclose(fp);
 //kni_target
     fp=fopen(kni_tg,"r");
     for(i=0;i<Nx;i++)
@@ -183,11 +200,12 @@ for(i=0;i<7;i++)
 #ifdef trainning1
 training(Gene);
 #endif
-    for(i=3;i<7;i++)
-        Gene[i]->setinit();
-#ifdef mhb1
-    Gene[4]->setvar(mhb);
-#endif
+
+    Gene[3]->setvar(kni_in_data);
+    Gene[4]->setvar(hb_in_data);
+    Gene[5]->setvar(kr_in_data);
+    Gene[6]->setvar(gt_in_data);
+
 //    for(i=0;i<7;i++)
 //    {
 //        for(j=0;j<7;j++)

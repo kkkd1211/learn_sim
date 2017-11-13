@@ -5,17 +5,22 @@ using namespace std;
 
 gene::gene()
 {
-    setinit();
-}
-void gene::setinit()
-{
     int i;
     for(i=0;i<Nx;i++)
     {
-        c0[i]=0.1;
+        c0[i]=0.0;
         c1[i]=0.0;
     }
 }
+//void gene::setinit()
+//{
+//    int i;
+//    for(i=0;i<Nx;i++)
+//    {
+//        c0[i]=0.1;
+//        c1[i]=0.0;
+//    }
+//}
 void gene::setvar(double var[Nx])
 {
     int i;

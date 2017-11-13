@@ -212,11 +212,11 @@ double run(pgene Gene[7])
 {
     int i,j;
     double tmp;
-    for(i=3;i<7;i++)
-        Gene[i]->setinit();
-#ifdef mhb1
-    Gene[4]->setvar(mhb);
-#endif
+
+    Gene[3]->setvar(kni_in_data);
+    Gene[4]->setvar(hb_in_data);
+    Gene[5]->setvar(kr_in_data);
+    Gene[6]->setvar(gt_in_data);
 //    for(i=0;i<7;i++)
 //    {
 //        for(j=3;j<7;j++)
