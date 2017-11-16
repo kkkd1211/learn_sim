@@ -5,6 +5,8 @@
 !README.md
 !input
 !input/*
+!output
+!output/*
 !*.sh
 !*.plt
 !.gitignore
