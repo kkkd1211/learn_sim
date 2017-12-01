@@ -233,6 +233,7 @@ double run(pgene Gene[7])
     {
         tmp+=Gene[i]->error();
     }
+    tmp+=2*Gene[4]->error();
     return(tmp);
 }
 

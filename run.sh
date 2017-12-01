@@ -1,4 +1,6 @@
 #!/bin/bash
+cp k.txt k_old.txt
+cp v.txt v_old.txt
 g++ *.cpp -o k -lm -O2
 rm ./output/*
 ./k
