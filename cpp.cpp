@@ -65,11 +65,11 @@ void gene::settarget(double t[Nx])
         target[i]=t[i];
     }
 }
-double gene::error()
+double gene::error(int x1,int x2)
 {
     int i;
     double tmp=0;
-    for(i=0;i<Nx;i++)
+    for(i=x1;i<x2;i++)
     {
         tmp+=(c0[i]-target[i])*(c0[i]-target[i]);
     }

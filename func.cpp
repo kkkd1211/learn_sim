@@ -231,9 +231,10 @@ double run(pgene Gene[7])
     tmp=0.0;
     for(i=3;i<7;i++)
     {
-        tmp+=Gene[i]->error();
+        tmp+=Gene[i]->error(0,100);
     }
-    tmp+=2*Gene[4]->error();
+    tmp+=2*Gene[4]->error(0,100);
+    tmp+=2*Gene[4]->error(65,100);
     return(tmp);
 }
 

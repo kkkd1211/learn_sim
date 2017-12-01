@@ -11,7 +11,7 @@ using namespace std;
 #define Nx 100
 #define T 2000
 //#define delta 0.001
-#define traintime 500
+#define traintime 200
 #define ln_rate_max 0.7
 #define ln_rate_min 0.2
 extern int topolo[7][7];
@@ -51,7 +51,7 @@ class gene
 //        void setinit();
         void next();
         void print(char name[20]);
-        double error();
+        double error(int x1,int x2);
         void settarget(double t[Nx]);
         void setvar(double var[Nx]);
 };
