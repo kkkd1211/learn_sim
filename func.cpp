@@ -110,12 +110,12 @@ void training(pgene Gene[7])
                 k[i][j]-=delta;
                 de=(init_err-err)/delta;
 
-                if(de>0)
+                if((de>0)&&(err>0.0001))
                 {
                     tmp=ln_rate*sqrt(de);
                     k[i][j]+=tmp;
                     err2=run(Gene);
-                    if(init_err-err2<0)
+                    if((init_err-err2<0)||(err2<0.0001))
                     {
                         k[i][j]=k[i][j]-tmp+delta;
                         init_err=err;
@@ -130,7 +130,7 @@ void training(pgene Gene[7])
                     err=run(Gene);
                     k[i][j]+=delta;
                     de=(init_err-err)/delta;
-                    if(de>0)
+                    if((de>0)&&(err>0.0001))
                     {
                         tmp=ln_rate*sqrt(de);
                         k[i][j]-=tmp;
@@ -141,7 +141,7 @@ void training(pgene Gene[7])
                             k[i][j]-=tmp;
                         }
                         err2=run(Gene);
-                        if(init_err-err2<0)
+                        if((init_err-err2<0)||(err2<0.0001))
                         {
                             k[i][j]=k[i][j]+tmp-delta;
                             init_err=err;
@@ -149,7 +149,6 @@ void training(pgene Gene[7])
                         else
                             init_err=err2;
                     }
-                    
                 }
                 printf("%f(%f)\t",k[i][j],init_err);
             }
@@ -168,12 +167,12 @@ void training(pgene Gene[7])
                 err=run(Gene);
                 v[i][j]-=delta;
                 de=(init_err-err)/delta;
-                if(de>0)
+                if((de>0)&&(err>0.0001))
                 {
                     tmp=ln_rate*(de);                           //sqrt
                     v[i][j]+=tmp;
                     err2=run(Gene);
-                    if(init_err-err2<0)
+                    if((init_err-err2<0)||(err2<0.0001))
                     {
                         v[i][j]=v[i][j]-tmp+delta;
                         init_err=err;
@@ -187,12 +186,12 @@ void training(pgene Gene[7])
                     err=run(Gene);
                     v[i][j]+=delta;
                     de=(init_err-err)/delta;
-                    if(de>0)
+                    if((de>0)&&(err>0.0001))
                     {
                         tmp=ln_rate*(de);                       //sqrt
                         v[i][j]-=tmp;
                         err2=run(Gene);
-                        if(init_err-err2<0)
+                        if((init_err-err2<0)||(err2<0.0001))
                         {
                             v[i][j]=v[i][j]+tmp-delta;
                             init_err=err;

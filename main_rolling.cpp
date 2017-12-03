@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include<math.h>
+#include <string.h>
 #include "head.h"
 #include "func.h"
 #include <sys/stat.h>
@@ -27,13 +28,13 @@ int mut[7][7]={     0,  0,  0,  1,  1,  1,  1,
 
 double k[7][7]={    0, 0, 0, K0, K0,  0, K0,
                     0, 0, 0,  0,  0,  0, K0,
-                    0, 0, 0,-K0,  0,  0,-K0,
+                    0, 0, 0,-K0, K0,  0,-K0,
                     0, 0, 0,  0,-K0,  0,  0,
                     0, 0, 0,-K1, K0, K0,  0,
                     0, 0, 0,  0,  0,  0,-K2,
                     0, 0, 0,  0,  0,-K0,  0
                     };
-double v[7][7]={    0,  0,  0,  1,  1,  0,  1,
+double v[7][7]={    0,  0,  0,  1, -1,  0,  1,
                     0,  0,  0,  5,  0,  0,  1,
                     0,  0,  0, -1,  0,  0, -1,
                     0,  0,  0,  0,  -3,  0,  0,
@@ -115,11 +116,93 @@ int main()
     char hb_tg[35]="data_final/hb_target.txt";
     char kr_tg[35]="data_final/kr_target.txt";
     char gt_tg[35]="data_final/gt_target.txt";
-    
-    char kni_in[40]="input/kni_in_wt.txt";
-    char hb_in[40]="input/hb_in_wt.txt";
-    char kr_in[40]="input/kr_in_wt.txt";
-    char gt_in[40]="input/gt_in_wt.txt";
+
+    for(i=0;i<7;i++)
+    {
+        for(j=3;j<7;j++)
+        {
+            mut[i][j]=1;
+        }
+    }
+    char kni_in[40];
+    char hb_in[40];
+    char kr_in[40];
+    char gt_in[40];
+    if(mu_type==0)    
+    {
+        printf("\nWT!\n\n");
+        strcpy(kni_in,"input/kni_in_wt.txt");
+        strcpy(hb_in,"input/hb_in_wt.txt");
+        strcpy(kr_in,"input/kr_in_wt.txt");
+        strcpy(gt_in,"input/gt_in_wt.txt");
+    }
+    else if(mu_type==1)
+    {
+        printf("\nBcd+!\n\n");
+        strcpy(kni_in,"input/kni_in_B+.txt");
+        strcpy(hb_in,"input/hb_in_B+.txt");
+        strcpy(kr_in,"input/kr_in_B+.txt");
+        strcpy(gt_in,"input/gt_in_B+.txt");
+        for(i=3;i<7;i++)
+        {
+            mut[1][i]=0;
+            mut[2][i]=0;
+        }
+    }
+    else if(mu_type==2)
+    {
+        printf("\nBcd-!\n\n");
+        strcpy(kni_in,"input/kni_in_B-.txt");
+        strcpy(hb_in,"input/hb_in_B-.txt");
+        strcpy(kr_in,"input/kr_in_B-.txt");
+        strcpy(gt_in,"input/gt_in_B-.txt");
+        for(i=3;i<7;i++)
+        {
+            mut[0][i]=0;
+        }
+    }
+    else if(mu_type==3)
+    {
+        printf("\nNos+!\n\n");
+        strcpy(kni_in,"input/kni_in_N+.txt");
+        strcpy(hb_in,"input/hb_in_N+.txt");
+        strcpy(kr_in,"input/kr_in_N+.txt");
+        strcpy(gt_in,"input/gt_in_N+.txt");
+        for(i=3;i<7;i++)
+        {
+            mut[0][i]=0;
+            mut[2][i]=0;
+        }
+    }
+    else if(mu_type==4)
+    {
+        printf("\nNos-!\n\n");
+        strcpy(kni_in,"input/kni_in_N-.txt");
+        strcpy(hb_in,"input/hb_in_N-.txt");
+        strcpy(kr_in,"input/kr_in_N-.txt");
+        strcpy(gt_in,"input/gt_in_N-.txt");
+        for(i=3;i<7;i++)
+        {
+            mut[1][i]=0;
+        }
+    }
+    else if(mu_type==5)
+    {
+        printf("\nTll-!\n\n");
+        strcpy(kni_in,"input/kni_in_T-.txt");
+        strcpy(hb_in,"input/hb_in_T-.txt");
+        strcpy(kr_in,"input/kr_in_T-.txt");
+        strcpy(gt_in,"input/gt_in_T-.txt");
+        for(i=3;i<7;i++)
+        {
+            mut[2][i]=0;
+        }
+    }
+    else
+    {
+        printf("no mut type!!!!!!!!!!\n\n");
+        return 0;
+    }
     fp=fopen(kni,"w");
     fclose(fp);
     fp=fopen(hb,"w");
