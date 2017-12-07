@@ -9,14 +9,14 @@ using namespace std;
 #define write0
 
 
-#define mu_type 5       //0:wt  1:B+    2:B-    3:N+    4:N-    5:T-
+#define mu_type 2       //0:wt  1:B+    2:B-    3:N+    4:N-    5:T-
 
 
 
 #define Nx 100
 #define T 2000
 //#define delta 0.001
-#define traintime 100
+#define traintime 200
 #define ln_rate_max 0.7
 #define ln_rate_min 0.2
 extern int topolo[7][7];

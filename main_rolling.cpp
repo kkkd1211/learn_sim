@@ -106,11 +106,11 @@ int main()
     }
 #endif
     mkdir("output",0777);
-    char kni[20]="output/kni.txt";
-    char hb[20]="output/hb.txt";
-    char kr[20]="output/kr.txt";
-    char gt[20]="output/gt.txt";
-    char fi[20]="output/final.txt";
+    char kni[35]="output/kni.txt";
+    char hb[35]="output/hb.txt";
+    char kr[35]="output/kr.txt";
+    char gt[35]="output/gt.txt";
+    char fi[35]="output/final.txt";
     
     char kni_tg[35]="data_final/kni_target.txt";
     char hb_tg[35]="data_final/hb_target.txt";
@@ -135,6 +135,12 @@ int main()
         strcpy(hb_in,"input/hb_in_wt.txt");
         strcpy(kr_in,"input/kr_in_wt.txt");
         strcpy(gt_in,"input/gt_in_wt.txt");
+        
+        strcpy(kni,"output/kni.txt");
+        strcpy(hb,"output/hb.txt");
+        strcpy(kr,"output/kr.txt");
+        strcpy(gt,"output/gt.txt");
+        strcpy(fi,"output/final.txt");
     }
     else if(mu_type==1)
     {
@@ -148,6 +154,12 @@ int main()
             mut[1][i]=0;
             mut[2][i]=0;
         }
+
+        strcpy(kni,"mut/OB+/kni.txt");
+        strcpy(hb,"mut/OB+/hb.txt");
+        strcpy(kr,"mut/OB+/kr.txt");
+        strcpy(gt,"mut/OB+/gt.txt");
+        strcpy(fi,"mut/OB+/final.txt");
     }
     else if(mu_type==2)
     {
@@ -160,6 +172,13 @@ int main()
         {
             mut[0][i]=0;
         }
+
+        strcpy(kni,"mut/OB-/kni.txt");
+        strcpy(hb,"mut/OB-/hb.txt");
+        strcpy(kr,"mut/OB-/kr.txt");
+        strcpy(gt,"mut/OB-/gt.txt");
+        strcpy(fi,"mut/OB-/final.txt");
+
     }
     else if(mu_type==3)
     {
@@ -173,6 +192,12 @@ int main()
             mut[0][i]=0;
             mut[2][i]=0;
         }
+        strcpy(kni,"mut/ON+/kni.txt");
+        strcpy(hb,"mut/ON+/hb.txt");
+        strcpy(kr,"mut/ON+/kr.txt");
+        strcpy(gt,"mut/ON+/gt.txt");
+        strcpy(fi,"mut/ON+/final.txt");
+
     }
     else if(mu_type==4)
     {
@@ -185,6 +210,12 @@ int main()
         {
             mut[1][i]=0;
         }
+        strcpy(kni,"mut/ON-/kni.txt");
+        strcpy(hb,"mut/ON-/hb.txt");
+        strcpy(kr,"mut/ON-/kr.txt");
+        strcpy(gt,"mut/ON-/gt.txt");
+        strcpy(fi,"mut/ON-/final.txt");
+
     }
     else if(mu_type==5)
     {
@@ -197,6 +228,12 @@ int main()
         {
             mut[2][i]=0;
         }
+        strcpy(kni,"mut/OT-/kni.txt");
+        strcpy(hb,"mut/OT-/hb.txt");
+        strcpy(kr,"mut/OT-/kr.txt");
+        strcpy(gt,"mut/OT-/gt.txt");
+        strcpy(fi,"mut/OT-/final.txt");
+
     }
     else
     {
@@ -223,7 +260,7 @@ int main()
     fclose(fp);    
 //Nos
     for(i=0;i<Nx;i++)
-        tmp[i]=1-Gene[0]->c0[i];
+        tmp[i]=Gene[0]->c0[Nx-1-i];
     Gene[1]=new gene(tmp);
 //Tll
     fp=fopen("input/Tll.txt","r");
