@@ -9,7 +9,7 @@ using namespace std;
 #define write0
 
 
-#define mu_type 5       //0:wt  1:B+    2:B-    3:N+    4:N-    5:T-
+#define mu_type 0       //0:wt  1:B+    2:B-    3:N+    4:N-    5:T-
 
 
 
