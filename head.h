@@ -4,9 +4,9 @@
 #include <stdlib.h>
 using namespace std;
 #define kkk printf("!!!\n");
-#define trainning0
+#define trainning1
 #define read1
-#define write0
+#define write1
 
 
 #define mu_type 0       //0:wt  1:B+    2:B-    3:N+    4:N-    5:T-
