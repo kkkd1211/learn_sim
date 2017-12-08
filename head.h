@@ -4,19 +4,19 @@
 #include <stdlib.h>
 using namespace std;
 #define kkk printf("!!!\n");
-#define trainning1
+#define trainning0
 #define read1
 #define write1
 
 
-#define mu_type 0       //0:wt  1:B+    2:B-    3:N+    4:N-    5:T-
+//#define mu_type 0       //0:wt  1:B+    2:B-    3:N+    4:N-    5:T-
 
 
 
 #define Nx 100
 #define T 2000
 //#define delta 0.001
-#define traintime 200
+#define traintime 10
 #define ln_rate_max 0.7
 #define ln_rate_min 0.2
 extern int topolo[7][7];

@@ -78,7 +78,7 @@ double alpha_new[7];
 double ln_rate;
 double D_rate=(ln_rate_max-ln_rate_min)/traintime;
 
-int main()
+int main(int argc,char *argv[])
 {
 	int i,j;
     for(i=0;i<7;i++)
@@ -128,6 +128,23 @@ int main()
     char hb_in[40];
     char kr_in[40];
     char gt_in[40];
+    int mu_type=0;
+    if(argc==2)
+    {
+        sscanf(argv[1],"%d",&mu_type);
+        if((mu_type>5))
+        {
+            mu_type=0;
+        }
+    }
+    else
+    {
+        mu_type=0;
+    }
+#ifdef trainning1
+    if(mu_type!=0)
+        return 0;
+#endif
     if(mu_type==0)    
     {
         printf("\nWT!\n\n");

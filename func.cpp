@@ -234,6 +234,8 @@ double run(pgene Gene[7])
     }
 //    tmp+=2*Gene[4]->error(0,100);
     tmp+=2*Gene[4]->error(65,100);
+    tmp+=2*Gene[3]->error(50,80);
+    tmp+=3*Gene[5]->error(50,70);
     return(tmp);
 }
 
